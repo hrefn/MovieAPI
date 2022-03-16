@@ -1,0 +1,24 @@
+{
+  "name": "movieapi",
+  "version": "1.0.0",
+  "description": "api for getting info on movies, directors, and genres",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hrefn/MovieAPI.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hrefn/MovieAPI/issues"
+  },
+  "homepage": "https://github.com/hrefn/MovieAPI#readme",
+  "dependencies": {
+    "body-parser": "^1.19.2",
+    "express": "^4.17.3"
+  }
+}
