@@ -34,29 +34,31 @@
       </tr>
       <tr>
         <td>Return a specific movie</td>
-        <td>/movies/:title</td>
+        <td>/movies/:Title</td>
         <td>GET</td>
-        <td>:title</td>
+        <td>:Title</td>
         <td>None</td>
         <td> JSON object containing data on a specific movie
           <pre>
             <code>
 {
-  title: '',
-  year: '',
-  genre: {
-    name: '',
-    description: ''
+  _id: { $oid: '' },
+  Title: '',
+  Year: '',
+  Genre: {
+    Name: '',
+    Description: ''
   }
   director: {
-    name: '',
-    birth: '',
-    death: ''
+    Name: '',
+    Bio: '',
+    Birth: '',
+    Death: ''
   },
   Actors: {
 
   },
-  imageURL: ''
+  ImagePath: ''
 }
             </code>
           </pre>
@@ -64,34 +66,26 @@
       </tr>
       <tr>
         <td>Return data on a specific genre</td>
-        <td>/movies/genres/:genre</td>
+        <td>/movies/genres/movies/:Genre</td>
         <td>GET</td>
-        <td>:genre</td>
+        <td>:Genre</td>
         <td>None</td>
-        <td>JSON object containing data on a specific genre
-          <pre>
-            <code>
-{
-  name: '',
-  description: ''
-}
-            </code>
-          </pre>
-        </td>
+        <td>Description of the Genre</td>
       </tr>
       <tr>
         <td>Return data on specific director</td>
-        <td>/movies/director/:name</td>
+        <td>/movies/director/:Name</td>
         <td>GET</td>
-        <td>:name</td>
+        <td>:Name</td>
         <td>None</td>
         <td>JSON object containing data on specific director
           <pre>
             <code>
 {
-  name: '',
-  birth: '',
-  death: ''
+  Name: '',
+  Bio: '',
+  Birth: '',
+  Death: ''
 }
             </code>
           </pre>
@@ -106,8 +100,10 @@
           <pre>
             <code>
 {
-  username: '',
-  favorites: []
+  Username: '',
+  Password: '',
+  Email: '',
+  Birthday: ''
 }
             </code>
           </pre>
@@ -116,9 +112,12 @@
           <pre>
             <code>
 {
-  username: '',
+  Username: '',
+  Password: '',
+  Email: '',
+  Birthday: '',
   favorites: [],
-  id: ''
+  _id: ''
 }
             </code>
           </pre>
@@ -126,14 +125,14 @@
       </tr>
       <tr>
         <td>Change existing user's username</td>
-        <td>/users/:username</td>
+        <td>/users/:Username</td>
         <td>PUT</td>
-        <td>:username</td>
+        <td>:Username</td>
         <td>JSON object containing new username
           <pre>
             <code>
 {
-  username: ''
+  Username: ''
 }
             </code>
           </pre>
@@ -142,9 +141,12 @@
           <pre>
             <code>
 {
-  username: '',
+  Username: '',
+  Password: '',
+  Email: '',
+  Birthday: '',
   favorites: [],
-  id: ''
+  _id: ''
 }
             </code>
           </pre>
@@ -152,37 +154,15 @@
       </tr>
       <tr>
         <td>Add new favorite movie</td>
-        <td>/users/:username/:title</td>
+        <td>/users/:Username/movies/:Title</td>
         <td>POST</td>
-        <td>:username and :title</td>
-        <td>JSON object containing movie data
-          <pre>
-            <code>
-{
-  title: '',
-  year: '',
-  genre: {
-    name: '',
-    description: ''
-  }
-  director: {
-    name: '',
-    birth: '',
-    death: ''
-  },
-  Actors: {
-
-  },
-  imageURL: ''
-}
-            </code>
-          </pre>
-        </td>
+        <td>:Username and :Title</td>
+        <td>User to add favorite to and JSON object containing movie ObjectId</td>
         <td>JSON object that was added to favorites list</td>
       </tr>
       <tr>
         <td>Remove a movie from favorites list</td>
-        <td>/users/:username/:title</td>
+        <td>/users/:Username/movies/:Title</td>
         <td>DELETE</td>
         <td>:username and :title</td>
         <td>None</td>
@@ -190,7 +170,7 @@
       </tr>
       <tr>
         <td>Deregister existing user account</td>
-        <td>/users/:username</td>
+        <td>/users/:Username</td>
         <td>DELETE</td>
         <td>:username</td>
         <td>None</td>
