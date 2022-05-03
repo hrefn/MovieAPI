@@ -4,6 +4,7 @@
   "description": "api for getting info on movies, directors, and genres",
   "main": "index.js",
   "scripts": {
+    "test": "echo \"Error: not test specified\" && exit 1",
     "start": "node index.js"
   },
   "build": "webpack",
