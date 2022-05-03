@@ -16,7 +16,7 @@ const { check, validationResult } = require('express-validator');
 
 let auth = require('./auth')(app);
 
-const passport = require('passpot');
+const passport = require('passport');
 require('./passport');
 
 app.use(morgan('common'));
