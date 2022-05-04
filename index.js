@@ -10,7 +10,7 @@ const express = require('express'),
 app.use(bodyParser.json());
 
 const cors = require('cors');
-let allowedOrigins = ['http://localhost:8080', 'https://young-reef-69362.herokuapp.com']
+let allowedOrigins = ['http://localhost:8080', 'https://young-reef-69362.herokuapp.com/']
 app.use(cors({
   origin: (origin, callback) => {
     if(!origin) return callback(null, true);
