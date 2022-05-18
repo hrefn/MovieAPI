@@ -1,0 +1,5 @@
+{"_id":{"$oid":"62430a8e129635637ab96c4c"},"Username":"cmcintosh","Password":"password","Email":"cmcintosh1000@gmail.com","Birthday":{"$date":"1998-05-25T00:00:00Z"},"FavoriteMovies":[{"$oid":"623a969e322a3344eb705555"},{"$oid":"623a986f322a3344eb705557"}]}
+{"_id":{"$oid":"62430b99129635637ab96c4d"},"Username":"hmcintosh","Password":"password","Email":"hmcintosh@gmail.com","Birthday":{"$date":"2001-05-24T00:00:00Z"},"FavoriteMovies":[{"$oid":"623a907a322a3344eb705551"}]}
+{"_id":{"$oid":"62430cca129635637ab96c4e"},"Username":"enidmcintosh","Password":"password","Email":"enidmcintosh@gmail.com","Birthday":{"$date":{"$numberLong":"-181872000000"}},"FavoriteMovies":[{"$oid":"623a8ead322a3344eb70554f"}]}
+{"_id":{"$oid":"62430d60129635637ab96c4f"},"Username":"chrismcintosh","Password":"password","Email":"cmcintosh@att.net","Birthday":{"$date":{"$numberLong":"-105235200000"}},"FavoriteMovies":[{"$oid":"623a8f9f322a3344eb705550"}]}
+{"_id":{"$oid":"62430db8129635637ab96c50"},"Username":"mot","Password":"password","Email":"mot@gmail.com","Birthday":{"$date":"1999-09-09T00:00:00Z"},"FavoriteMovies":[{"$oid":"623a978b322a3344eb705556"}]}
