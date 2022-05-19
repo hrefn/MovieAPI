@@ -28,6 +28,7 @@ app.use(cors({
 }));
 
 const { check, validationResult } = require('express-validator');
+const res = require('express/lib/response');
 
 let auth = require('./auth')(app);
 
@@ -44,7 +45,9 @@ app.use((err, req, res, next) => {
 });
 
 
-
+app.get('/', (req, res) => {
+  res.send('Welcome to MyFlix app!')
+})
 
 //POST a new user
 app.post('/users',
