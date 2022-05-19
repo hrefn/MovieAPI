@@ -5,6 +5,7 @@ const express = require('express'),
   uuid = require('mongoose'),
   Models = require('./models.js'),
   Movies = Models.Movie,
+  mongoose = require('mongoose'),
   Users = Models.User;
 
 app.use(bodyParser.json());
