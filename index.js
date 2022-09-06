@@ -204,6 +204,8 @@ app.post('/users/:Username/movies/:MovieID', passport.authenticate('jwt', { sess
   });
 });
 
+
+//get favorite movies for a user
 app.get('/users/:Username/movies', passport.auth('jwt', { session: false }), (req, res) => {
   Users.findOne({ Username: req.params.Username })
     .then((user) => {
