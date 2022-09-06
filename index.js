@@ -14,7 +14,7 @@ mongoose.connect(process.env.CONNECTION_URI, { useNewUrlParser: true, useUnified
 
 const cors = require('cors');
 
-let allowedOrigins = ['http://localhost:1234', 'http://localhost:8080', 'https://myflix-db-54469.herokuapp.com/', 'http://localhost:4200', 'https://hrefn.github.io/', 'https://hrefn.github.io/myFlix-Angular/welcome']
+let allowedOrigins = ['http://localhost:1234', 'http://localhost:8080', 'https://myflix-db-54469.herokuapp.com/', 'http://localhost:4200', 'https://hrefn.github.io', 'https://hrefn.github.io/myFlix-Angular/welcome']
 
 app.use(cors({
   origin: (origin, callback) => {
