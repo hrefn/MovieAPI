@@ -204,6 +204,21 @@ app.post('/users/:Username/movies/:MovieID', passport.authenticate('jwt', { sess
   });
 });
 
+app.get('/users/:Username/movies', passport.auth('jwt', { session: false }), (req, res) => {
+  Users.findOne({ Username: req.params.Username })
+    .then((user) => {
+      if (user) {
+        res.status(200).json(user.FavoriteMovies);
+      } else {
+        res.status(400).send('Could not find favorite movies for this user')
+      }
+    })
+    .catch((err) => {
+      console.error(err)
+      res.status(500).send('Error: ' + err)
+    })
+})
+
 //DELETE a movie from favorites
 app.delete('/users/:Username/movies/:MovieID', passport.authenticate('jwt', { session: false }), (req, res) => {
   Users.findOneAndUpdate({ Username: req.params.Username }, {
