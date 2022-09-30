@@ -1,6 +1,10 @@
+
+//Load express
 const express = require('express'),
-  app = express(),
-  morgan = require('morgan'),
+  app = express()
+
+
+const morgan = require('morgan'),
   bodyParser = require('body-parser'),
   uuid = require('mongoose'),
   Models = require('./models.js'),
@@ -14,9 +18,15 @@ mongoose.connect(process.env.CONNECTION_URI, { useNewUrlParser: true, useUnified
 
 const cors = require('cors');
 
-let allowedOrigins = ['http://localhost:1234', 'http://localhost:8080', 'https://myflix-db-54469.herokuapp.com/', 'http://localhost:4200', 'https://hrefn.github.io', 'https://hrefn.github.io/myFlix-Angular/welcome']
+let allowedOrigins = ['*']
 
 app.use(cors({
+  /**
+   * 
+   * @param origin 
+   * @param callback 
+   * @returns callback
+   */
   origin: (origin, callback) => {
     if(!origin) return callback(null, true);
     if(allowedOrigins.indexOf(origin) === -1){
@@ -49,7 +59,11 @@ app.get('/', (req, res) => {
   res.send('Welcome to MyFlix app!')
 })
 
-//POST a new user
+/**
+ * 
+ * post a new user
+ * @returns 201, new user object or 500, error or 422, user already exists
+ */
 app.post('/users',
   [
     check('Username', 'Username is required').isLength({ min: 5 }),
@@ -88,7 +102,12 @@ app.post('/users',
       });
   });
 
-//GET info on all users
+/**
+ * 
+ * get info on all users
+ * @returns 201, array of user objects or 500, error
+ * @requires passport
+ */
 app.get('/users', passport.authenticate('jwt', { session: false }), (req, res) => {
   Users.find()
     .then((users) => {
@@ -100,7 +119,13 @@ app.get('/users', passport.authenticate('jwt', { session: false }), (req, res) =
     });
 });
 
-//GET info on a specific user
+/**
+ * 
+ * get info on a user
+ * @param Username
+ * @returns user object or 500, error
+ * @requires passport
+ */
 app.get('/users/:Username', passport.authenticate('jwt', { session: false }), (req, res) => {
   Users.findOne({ Username: req.params.Username })
     .then((user) => {
@@ -112,7 +137,13 @@ app.get('/users/:Username', passport.authenticate('jwt', { session: false }), (r
     });
 });
 
-//GET info on all movies
+
+/**
+ * 
+ * get info on all movies
+ * @returns 201, array of movie objects or 500, error
+ * @requires passport
+ */
 app.get('/movies', passport.authenticate('jwt', { session: false }), (req, res) => {
   Movies.find()
     .then((movies) => {
@@ -124,7 +155,14 @@ app.get('/movies', passport.authenticate('jwt', { session: false }), (req, res) 
     });
 });
 
-//GET info on a specific movie
+
+/**
+ * 
+ * get info on a specific movie
+ * @param Title
+ * @returns 201, movie object or 500, error
+ * @requires passport
+ */
 app.get('/movies/:Title', passport.authenticate('jwt', { session: false }), (req, res) => {
   Movies.findOne({ Title: req.params.Title })
     .then((movie) => {
@@ -136,7 +174,14 @@ app.get('/movies/:Title', passport.authenticate('jwt', { session: false }), (req
     });
 });
 
-//GET info on a specific genre
+
+/**
+ * 
+ * get info on a genre
+ * @param Name (of genre)
+ * @returns genre object or 500, error
+ * @requires passport
+ */
 app.get('/movies/genres/:Name', passport.authenticate('jwt', { session: false }), (req, res) => {
   Movies.findOne({ 'Genre.name': req.params.Name })
     .then((movie) => {
@@ -148,7 +193,14 @@ app.get('/movies/genres/:Name', passport.authenticate('jwt', { session: false })
     });
 });
 
-//GET info on a specific director
+
+/**
+ * 
+ * get info on a director
+ * @param Name (of director)
+ * @returns director object or 500, error
+ * @requires passport
+ */
 app.get('/movies/director/:Name', passport.authenticate('jwt', { session: false }), (req, res) => {
   Movies.findOne({ 'Director.name': req.params.Name })
     .then((movie) => {
@@ -160,7 +212,14 @@ app.get('/movies/director/:Name', passport.authenticate('jwt', { session: false 
     });
 });
 
-//change an existing users username
+
+/**
+ * 
+ * Change account details (username, password, email, birthday)
+ * @param Username
+ * @returns the updated user or 500, error
+ * @requires passport
+ */
 app.put('/users/:Username', passport.authenticate('jwt', { session: false }), [
   check('Username', 'Username is required').isLength({ min: 5 }),
   check('Username', 'Username contains non alphanumeric characters - not allowed.').isAlphanumeric(),
@@ -188,7 +247,14 @@ app.put('/users/:Username', passport.authenticate('jwt', { session: false }), [
     });
 });
 
-//POST a movie to favorites
+
+/**
+ * 
+ * Post a movie to users favorites
+ * @param Username
+ * @returns 201, movie was added to favorites or 500, error
+ * @requires passport
+ */
 app.post('/users/:Username/movies/:MovieID', passport.authenticate('jwt', { session: false }), (req, res) => {
   Users.findOneAndUpdate({ Username: req.params.Username }, {
     $push: { FavoriteMovies: req.params.MovieID }
@@ -205,7 +271,14 @@ app.post('/users/:Username/movies/:MovieID', passport.authenticate('jwt', { sess
 });
 
 
-//get favorite movies for a user
+
+/**
+ * 
+ * Get all of a user's favorite movies
+ * @param Username
+ * @returns 200, favorite movies array or 400, could not find favorite movies for this user
+ * @requires passport
+ */
 app.get('/users/:Username/movies', passport.authenticate('jwt', { session: false }), (req, res) => {
   Users.findOne({ Username: req.params.Username })
     .then((user) => {
@@ -220,7 +293,16 @@ app.get('/users/:Username/movies', passport.authenticate('jwt', { session: false
       res.status(500).send('Error: ' + err);
     });
 });
-//DELETE a movie from favorites
+
+
+/**
+ * 
+ * delete a movie from user's favorites
+ * @param Username
+ * @param MovieID
+ * @returns 201, movie has been removed from favorites or 500 error
+ * @requires passport
+ */
 app.delete('/users/:Username/movies/:MovieID', passport.authenticate('jwt', { session: false }), (req, res) => {
   Users.findOneAndUpdate({ Username: req.params.Username }, {
     $pull: { FavoriteMovies: req.params.MovieID }
@@ -237,7 +319,13 @@ app.delete('/users/:Username/movies/:MovieID', passport.authenticate('jwt', { se
 });
 
 
-//DELETE a user
+/**
+ * 
+ * delete a users account
+ * @param Username
+ * @returns 200, user was deleted or 400, user was not found
+ * @requires passport
+ */
 app.delete('/users/:Username', passport.authenticate('jwt', { session: false }), (req, res) => {
   Users.findOneAndRemove({ Username: req.params.Username })
     .then((user) => {
@@ -257,6 +345,5 @@ const port = process.env.PORT || 8080;
 app.listen(port, '0.0.0.0', () => {
   console.log('Listening on Port ' + port)
 })
-
 
 

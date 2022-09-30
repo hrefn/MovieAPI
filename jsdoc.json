@@ -1,0 +1,10 @@
+{
+  "source": {
+    "include": ["./"]
+  },
+  "tags": {
+    "allowUknownTags": true
+  },
+  "plugins": ["plugins/markdown"],
+  "recurseDepth": 100
+}
